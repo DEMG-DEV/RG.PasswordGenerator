@@ -12,5 +12,6 @@ Currently, two official plugins are available:
   ## for run
 
   ```bash
+  npm install
   npm run dev
   ```

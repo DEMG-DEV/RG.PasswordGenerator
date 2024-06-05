@@ -1,35 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Reddit+Mono&display=swap');
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-
-  font-family: 'Reddit Mono', monospace;
-  font-weight: 400;
-  font-style: normal;
-  line-height: 1.5;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 .wrapper {
   max-width: 500px;
   width: 90%;
   margin: 40px auto;
 }
 
-label {
-  line-height: 1.5;
-}
-
 input {
   text-align: center;
+}
+
+.card {
+  margin: 5px 10px;
+  text-align: center;
+}
+
+.btn-gen {
+  width: 100%;
 }

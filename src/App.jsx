@@ -11,6 +11,8 @@ function App() {
     symbols: false
   });
 
+  const [inputs, setInputs] = useState([]);
+
   const [handleText, setHandleText] = useState("");
   const [copied, setCopied] = useState(false);
 
@@ -79,6 +81,7 @@ function App() {
       const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
       const characters = shuffleArray(availableCharacters).slice(0, length);
       setHandleText(characters.join(''));
+      setInputs([...inputs, { password: characters.join('') }]);
       return characters;
     };
 
@@ -87,13 +90,13 @@ function App() {
 
   return (
     <div className='wrapper'>
-      <div className='container wrapper-box'>
+      <div className='container'>
         <h2>Password Generator</h2>
-        <div className='password-box'>
-          <input type='text' value={handleText} onChange={(e) => {
+        <div className='input-group mb-3'>
+          <input className='form-control' type='text' value={handleText} onChange={(e) => {
             setHandleText(e.target.value);
-          }} />
-          <button className='copy-button' onClick={() => {
+          }} readOnly />
+          <button className='btn btn-secondary' onClick={() => {
             if (handleText.length > 0) {
               navigator.clipboard.writeText(handleText);
               setCopied(true);
@@ -104,48 +107,39 @@ function App() {
           }}>{copied ? 'Copied!' : 'Copy Text'}</button>
         </div>
         <br />
-        <div className='word-criteria__box'>
-          <div>
-            <label>Password lenght</label>
-          </div>
-          <div>
-            <input type='number' min='4' max='50' value={passwordGen.length} onChange={(e) => setPasswordLength(e.target.value)} />
-          </div>
+        <div className='input-group mb-3'>
+          <input className='form-control' type='number' min='4' max='50' value={passwordGen.length} onChange={(e) => setPasswordLength(e.target.value)} />
+          <span className='input-group-text'>Password lenght</span>
         </div>
-        <div className='word-criteria__box'>
-          <div>
-            <label>Include uppercase letters</label>
-          </div>
-          <div>
-            <Checkbox value={passwordGen.uppercase} onChange={handleChangeUppercase} />
-          </div>
+        <div className='form-check'>
+          <label className='form-check-label'>Include uppercase letters</label>
+          <Checkbox value={passwordGen.uppercase} onChange={handleChangeUppercase} />
         </div>
-        <div className='word-criteria__box'>
-          <div>
-            <label>Include lowercase letters</label>
-          </div>
-          <div>
-            <Checkbox value={passwordGen.lowercase} onChange={handleChangeLowercase} />
-          </div>
+        <div className='form-check'>
+          <label className='form-check-label'>Include lowercase letters</label>
+          <Checkbox value={passwordGen.lowercase} onChange={handleChangeLowercase} />
         </div>
-        <div className='word-criteria__box'>
-          <div>
-            <label>Include numbers</label>
-          </div>
-          <div>
-            <Checkbox value={passwordGen.numbers} onChange={handleChangeNumbers} />
-          </div>
+        <div className='form-check'>
+          <label className='form-check-label'>Include numbers</label>
+          <Checkbox value={passwordGen.numbers} onChange={handleChangeNumbers} />
         </div>
-        <div className='word-criteria__box'>
-          <div>
-            <label>Include symbols</label>
-          </div>
-          <div>
-            <Checkbox value={passwordGen.symbols} onChange={handleChangeSymbols} />
-          </div>
+        <div className='form-check'>
+          <label className='form-check-label'>Include symbols</label>
+          <Checkbox value={passwordGen.symbols} onChange={handleChangeSymbols} />
         </div>
+        <br />
         <div>
-          <button className='generate-button' onClick={generatePassword}>Generate password</button>
+          <button className='btn btn-primary btn-gen' onClick={generatePassword}>Generate password</button>
+        </div>
+        <hr></hr>
+        <div id='passwordLog'>
+          {inputs.toReversed().map((input, index) => (
+            <div className="card" key={index}>
+              <div className="card-body">
+                {input.password}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
